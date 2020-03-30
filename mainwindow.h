@@ -24,8 +24,6 @@ private slots:
 
     void display_fraction(Fraction fr, int field_num);
 
-
-    // idk
     void on_plus_clicked();
     void on_minus_clicked();
     void on_multiply_clicked();
