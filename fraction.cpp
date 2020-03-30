@@ -73,6 +73,8 @@ Fraction Fraction::divide(const Fraction &other)
 }
 
 int find_gcd(int a, int b){
+    a = abs(a);
+    b = abs(b);
     if (a == 0)
         return b;
     else if (b == 0)
