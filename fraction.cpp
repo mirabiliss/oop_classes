@@ -72,6 +72,19 @@ Fraction Fraction::divide(const Fraction &other)
     return res;
 }
 
+int find_gcd(int a, int b){
+    if (a == 0)
+        return b;
+    else if (b == 0)
+        return a;
+    else if (a == b)
+        return a;
+    else if (a > b)
+        return find_gcd(a - b, b);
+    else
+        return find_gcd(a, b - a);
+}
+
 void Fraction::cut()
 {
     int gcd = find_gcd(this->getNum(), this->getDen());
@@ -85,17 +98,4 @@ void Fraction::turn()
     Fraction res(this->getDen(), this->getNum());
     this->setNum(res.getNum());
     this->setDen(res.getDen());
-}
-
-int Fraction::find_gcd(int a, int b){
-    if (a == 0)
-        return b;
-    else if (b == 0)
-        return a;
-    else if (a == b)
-        return a;
-    else if (a > b)
-        return find_gcd(a - b, b);
-    else
-        return find_gcd(a, b - a);
 }

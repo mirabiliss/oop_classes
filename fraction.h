@@ -25,8 +25,6 @@ public:
     int getDen() const;
     void setDen(int value);
 
-    int find_gcd(int a, int b);
-
 private:
     int num;
     int den;
