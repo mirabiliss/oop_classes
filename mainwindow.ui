@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>554</width>
-    <height>575</height>
+    <height>509</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -212,8 +212,8 @@
    <widget class="QPushButton" name="turn_first">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>190</y>
+      <x>30</x>
+      <y>180</y>
       <width>91</width>
       <height>51</height>
      </rect>
@@ -225,8 +225,8 @@
    <widget class="QPushButton" name="turn_second">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>190</y>
+      <x>130</x>
+      <y>180</y>
       <width>111</width>
       <height>51</height>
      </rect>
@@ -238,8 +238,8 @@
    <widget class="QPushButton" name="display_first">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>190</y>
+      <x>250</x>
+      <y>180</y>
       <width>121</width>
       <height>51</height>
      </rect>
@@ -251,8 +251,8 @@
    <widget class="QPushButton" name="display_second">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>190</y>
+      <x>380</x>
+      <y>180</y>
       <width>141</width>
       <height>51</height>
      </rect>
@@ -265,7 +265,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>500</y>
+      <y>430</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -278,7 +278,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>250</y>
+      <y>240</y>
       <width>141</width>
       <height>51</height>
      </rect>
@@ -290,8 +290,8 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>310</y>
+      <x>380</x>
+      <y>240</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -304,7 +304,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>410</y>
+      <y>340</y>
       <width>141</width>
       <height>71</height>
      </rect>
@@ -314,7 +314,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>410</y>
+      <y>340</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -327,7 +327,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>450</y>
+      <y>380</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -340,7 +340,7 @@
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>410</y>
+      <y>340</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -353,7 +353,7 @@
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>450</y>
+      <y>380</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -366,7 +366,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>380</y>
+      <y>320</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -378,8 +378,8 @@
    <widget class="QTextEdit" name="display">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>330</y>
+      <x>380</x>
+      <y>260</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -399,6 +399,45 @@
     </property>
     <property name="text">
      <string>result:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>0</y>
+      <width>101</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>first fraction:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>0</y>
+      <width>111</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>second fraction:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>100</y>
+      <width>261</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>choose what's to be done to them:</string>
     </property>
    </widget>
   </widget>
