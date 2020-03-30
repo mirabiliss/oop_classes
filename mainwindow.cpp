@@ -13,11 +13,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setValue(QTextEdit *field, QString val)
-{
-    field->setText(val);
-}
-
 void MainWindow::on_clear_clicked()
 {
     ui->numerator1->clear();
@@ -30,39 +25,17 @@ void MainWindow::on_clear_clicked()
     ui->enter_field->clear();
 }
 
-int find_gcd(int a, int b){
-    if (a == 0)
-        return b;
-    else if (b == 0)
-        return a;
-    else if (a == b)
-        return a;
-    else if (a > b)
-        return find_gcd(a - b, b);
-    else
-        return find_gcd(a, b - a);
-}
-
 void MainWindow::on_plus_clicked()
 {
     if(!(check_denom(ui->denominator1)) || !(check_denom(ui->denominator2))){
         return;
     }
-
-    int num = ui->numerator1->toPlainText().toInt() * ui->denominator2->toPlainText().toInt() + ui->numerator2->toPlainText().toInt() *ui->denominator1->toPlainText().toInt();
-    int den = ui->denominator1->toPlainText().toInt() * ui->denominator2->toPlainText().toInt();
-
-    QString numer = QString::number(num);
-    QString denom = QString::number(den);
-
-    // cut result
-    int gcd = find_gcd(num, den);
-    QString a = QString::number(num / gcd);
-    QString b = QString::number(den / gcd);
-
-    // displaying result
-    setValue(ui->res_numerator, a);
-    setValue(ui->res_denominator, b);
+    Fraction first(ui->numerator1->toPlainText().toInt(),
+                   ui->denominator1->toPlainText().toInt()),
+             second(ui->numerator2->toPlainText().toInt(),
+                    ui->denominator2->toPlainText().toInt());
+    Fraction res = first.add(second);
+    display_fraction(res, 3);
 }
 
 void MainWindow::on_minus_clicked()
@@ -70,19 +43,12 @@ void MainWindow::on_minus_clicked()
     if(!(check_denom(ui->denominator1)) || !(check_denom(ui->denominator2))){
         return;
     }
-
-    int num = ui->numerator1->toPlainText().toInt() * ui->denominator2->toPlainText().toInt() - ui->numerator2->toPlainText().toInt() * ui->denominator1->toPlainText().toInt();
-    int den = ui->denominator1->toPlainText().toInt() * ui->denominator2->toPlainText().toInt();
-
-
-    // cut result
-    int gcd = find_gcd(num, den);
-    QString a = QString::number(num / gcd);
-    QString b = QString::number(den / gcd);
-
-    // displaying result
-    setValue(ui->res_numerator, a);
-    setValue(ui->res_denominator, b);
+    Fraction first(ui->numerator1->toPlainText().toInt(),
+                   ui->denominator1->toPlainText().toInt()),
+             second(ui->numerator2->toPlainText().toInt(),
+                    ui->denominator2->toPlainText().toInt());
+    Fraction res = first.subtract(second);
+    display_fraction(res, 3);
 }
 
 void MainWindow::on_multiply_clicked()
@@ -90,18 +56,12 @@ void MainWindow::on_multiply_clicked()
     if(!(check_denom(ui->denominator1)) || !(check_denom(ui->denominator2))){
         return;
     }
-
-    int num = ui->numerator1->toPlainText().toInt() * ui->numerator2->toPlainText().toInt();
-    int den = ui->denominator1->toPlainText().toInt() * ui->denominator2->toPlainText().toInt();
-
-    // cut result
-    int gcd = find_gcd(num, den);
-    QString a = QString::number(num / gcd);
-    QString b = QString::number(den / gcd);
-
-    // displaying result
-    setValue(ui->res_numerator, a);
-    setValue(ui->res_denominator, b);
+    Fraction first(ui->numerator1->toPlainText().toInt(),
+                   ui->denominator1->toPlainText().toInt()),
+             second(ui->numerator2->toPlainText().toInt(),
+                    ui->denominator2->toPlainText().toInt());
+    Fraction res = first.multiply(second);
+    display_fraction(res, 3);
 }
 
 void MainWindow::on_divide_clicked()
@@ -109,18 +69,12 @@ void MainWindow::on_divide_clicked()
     if(!(check_denom(ui->denominator1)) || !(check_denom(ui->denominator2))){
         return;
     }
-
-    int num = ui->numerator1->toPlainText().toInt() * ui->denominator2->toPlainText().toInt();
-    int den = ui->denominator1->toPlainText().toInt() * ui->numerator2->toPlainText().toInt();
-
-    // cut result
-    int gcd = find_gcd(num, den);
-    QString a = QString::number(num / gcd);
-    QString b = QString::number(den / gcd);
-
-    // displaying result
-    setValue(ui->res_numerator, a);
-    setValue(ui->res_denominator, b);
+    Fraction first(ui->numerator1->toPlainText().toInt(),
+                   ui->denominator1->toPlainText().toInt()),
+             second(ui->numerator2->toPlainText().toInt(),
+                    ui->denominator2->toPlainText().toInt());
+    Fraction res = first.divide(second);
+    display_fraction(res, 3);
 }
 
 void MainWindow::on_cut_first_clicked()
@@ -128,14 +82,10 @@ void MainWindow::on_cut_first_clicked()
     if(!(check_denom(ui->denominator1))){
         return;
     }
-
-    int gcd = find_gcd(ui->numerator1->toPlainText().toInt(),
-                       ui->denominator1->toPlainText().toInt());
-    QString a = QString::number(ui->numerator1->toPlainText().toInt() / gcd);
-    QString b = QString::number(ui->denominator1->toPlainText().toInt() / gcd);
-
-    ui->numerator1->setText(a);
-    ui->denominator1->setText(b);
+    Fraction fr(ui->numerator1->toPlainText().toInt(),
+               ui->denominator1->toPlainText().toInt());
+    fr.cut();
+    display_fraction(fr, 1);
 }
 
 void MainWindow::on_cut_second_clicked()
@@ -143,24 +93,26 @@ void MainWindow::on_cut_second_clicked()
     if(!(check_denom(ui->denominator2))){
         return;
     }
-
-    int gcd = find_gcd(ui->numerator2->toPlainText().toInt(),
-                       ui->denominator2->toPlainText().toInt());
-    QString a = QString::number(ui->numerator2->toPlainText().toInt() / gcd);
-    QString b = QString::number(ui->denominator2->toPlainText().toInt() / gcd);
-
-    ui->numerator2->setText(a);
-    ui->denominator2->setText(b);
+    Fraction fr(ui->numerator2->toPlainText().toInt(),
+               ui->denominator2->toPlainText().toInt());
+    fr.cut();
+    display_fraction(fr, 2);
 }
 
 void MainWindow::on_display_first_clicked()
 {
+    if(!(check_denom(ui->denominator1))){
+        return;
+    }
     QString str = QString::number(ui->numerator1->toPlainText().toFloat() /
                                   ui->denominator1->toPlainText().toFloat());
     ui->display->setText(str);}
 
 void MainWindow::on_display_second_clicked()
 {
+    if(!(check_denom(ui->denominator2))){
+        return;
+    }
     QString str = QString::number(ui->numerator2->toPlainText().toFloat() /
                                   ui->denominator2->toPlainText().toFloat());
     ui->display->setText(str);
@@ -168,6 +120,9 @@ void MainWindow::on_display_second_clicked()
 
 void MainWindow::on_display_result_clicked()
 {
+    if(!(check_denom(ui->res_denominator))){
+        return;
+    }
     QString str = QString::number(ui->res_numerator->toPlainText().toFloat() /
                                   ui->res_denominator->toPlainText().toFloat());
     ui->display->setText(str);
@@ -175,16 +130,18 @@ void MainWindow::on_display_result_clicked()
 
 void MainWindow::on_turn_first_clicked()
 {
-    QString tmp = QString::number(ui->numerator1->toPlainText().toInt());
-    ui->numerator1->setText(ui->denominator1->toPlainText());
-    ui->denominator1->setText(tmp);
+    Fraction fr(ui->numerator1->toPlainText().toInt(),
+               ui->denominator1->toPlainText().toInt());
+    fr.turn();
+    display_fraction(fr, 1);
 }
 
 void MainWindow::on_turn_second_clicked()
 {
-    QString tmp = QString::number(ui->numerator2->toPlainText().toInt());
-    ui->numerator2->setText(ui->denominator2->toPlainText());
-    ui->denominator2->setText(tmp);
+    Fraction fr(ui->numerator2->toPlainText().toInt(),
+               ui->denominator2->toPlainText().toInt());
+    fr.turn();
+    display_fraction(fr, 2);
 }
 
 bool MainWindow::check_denom(QTextEdit* denom){
@@ -193,8 +150,26 @@ bool MainWindow::check_denom(QTextEdit* denom){
         box->setText("Error. You're trying to divide by zero.");
         box->exec();
         return false;
-    } else{
+    } else {
         return true;
+    }
+}
+
+void MainWindow::display_fraction(Fraction fr, int field_num)
+{
+    QString num = QString::number(fr.getNum());
+    QString den = QString::number(fr.getDen());
+    if(field_num == 1){
+        ui->numerator1->setText(num);
+        ui->denominator1->setText(den);
+    }
+    else if (field_num == 2){
+        ui->numerator2->setText(num);
+        ui->denominator2->setText(den);
+    }
+    else {
+        ui->res_numerator->setText(num);
+        ui->res_denominator->setText(den);
     }
 }
 
