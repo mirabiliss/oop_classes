@@ -1,5 +1,15 @@
 #include "fraction.h"
 
+void Fraction::add_obj_qnt()
+{
+    objects++;
+}
+
+unsigned Fraction::get_objets_qnt()
+{
+    return objects;
+}
+
 Fraction::Fraction()
 {
     this->num = 0;
@@ -38,7 +48,64 @@ void Fraction::setDen(int value)
     den = value;
 }
 
-Fraction Fraction::add(const Fraction &other)
+Fraction Fraction::operator+(const Fraction &other) const
+{
+    return this->add(other);
+}
+
+Fraction Fraction::operator-(const Fraction &other) const
+{
+    return this->subtract(other);
+}
+
+Fraction Fraction::operator*(const Fraction &other) const
+{
+    return this->multiply(other);
+}
+
+Fraction Fraction::operator/(const Fraction &other) const
+{
+    return this->divide(other);
+}
+
+void Fraction::operator!()
+{
+    this->turn();
+}
+
+void Fraction::operator<<(QTextEdit **from)
+{
+    this->num = from[0]->toPlainText().toInt();
+    this->den = from[1]->toPlainText().toInt();
+}
+
+void Fraction::operator>>(QTextEdit **to)
+{
+    to[0]->setText(QString::number(this->num));
+    to[1]->setText(QString::number(this->den));
+}
+
+bool Fraction::operator>(const Fraction &other)
+{
+    return ((this->num / this->den) > (other.num / other.den));
+}
+
+bool Fraction::operator<(const Fraction &other)
+{
+    return ((this->num / this->den) < (other.num / other.den));
+}
+
+bool Fraction::operator==(const Fraction &other)
+{
+    return ((this->num / this->den) == (other.num / other.den));
+}
+
+bool Fraction::operator!=(const Fraction &other)
+{
+    return ((this->num / this->den) != (other.num / other.den));
+}
+
+Fraction Fraction::add(const Fraction &other) const
 {
     Fraction res(this->getNum() * other.getDen() +
                  other.getNum() * this->getDen(),
@@ -47,7 +114,17 @@ Fraction Fraction::add(const Fraction &other)
     return res;
 }
 
-Fraction Fraction::subtract(const Fraction &other)
+Fraction Fraction::add(const Fraction &first, const Fraction &second) const
+{
+    Fraction res(this->getNum() * first.getDen() * second.getDen() +
+                 first.getNum() * this->getDen() * second.getDen() +
+                 second.getNum() * this->getDen() * first.getDen(),
+                 this->getDen() * first.getDen() * second.getDen());
+    res.cut();
+    return res;
+}
+
+Fraction Fraction::subtract(const Fraction &other) const
 {
     Fraction res(this->getNum() * other.getDen() -
                  other.getNum() * this->getDen(),
@@ -56,7 +133,17 @@ Fraction Fraction::subtract(const Fraction &other)
     return res;
 }
 
-Fraction Fraction::multiply(const Fraction &other)
+Fraction Fraction::subtract(const Fraction &first, const Fraction &second) const
+{
+    Fraction res(this->getNum() * first.getDen() * second.getDen() -
+                 first.getNum() * this->getDen() * second.getDen() -
+                 second.getNum() * this->getDen() * first.getDen(),
+                 this->getDen() * first.getDen() * second.getDen());
+    res.cut();
+    return res;
+}
+
+Fraction Fraction::multiply(const Fraction &other) const
 {
     Fraction res(this->getNum() * other.getNum(),
                  this->getDen() * other.getDen());
@@ -64,11 +151,29 @@ Fraction Fraction::multiply(const Fraction &other)
     return res;
 }
 
-Fraction Fraction::divide(const Fraction &other)
+Fraction Fraction::multiply(const Fraction &first, const Fraction &second) const
+{
+    Fraction res(this->getNum() * first.getNum() * second.getNum(),
+                 this->getDen() * first.getDen() * second.getDen());
+    res.cut();
+    return res;
+}
+
+Fraction Fraction::divide(const Fraction &other) const
 {
     Fraction second = other;
     second.turn();
     Fraction res = this->multiply(second);
+    return res;
+}
+
+Fraction Fraction::divide(const Fraction &first, const Fraction &second) const
+{
+    Fraction f = first;
+    f.turn();
+    Fraction s = second;
+    s.turn();
+    Fraction res = this->multiply(f, s);
     return res;
 }
 
